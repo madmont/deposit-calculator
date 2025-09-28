@@ -97,66 +97,6 @@
             padding: 40px;
         }
         
-        .email-subscribe {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            color: white;
-            text-align: center;
-        }
-        
-        .email-subscribe h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        
-        .email-subscribe p {
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        .email-form {
-            display: flex;
-            gap: 10px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .email-form input {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        
-        .email-form button {
-            padding: 15px 30px;
-            background: white;
-            color: #f5576c;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .email-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .success-message {
-            display: none;
-            background: #10b981;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-        
         .input-section {
             background: #f8f9ff;
             padding: 30px;
@@ -382,10 +322,6 @@
                 font-size: 28px;
             }
             
-            .email-form {
-                flex-direction: column;
-            }
-            
             .share-buttons {
                 position: static;
                 justify-content: center;
@@ -418,20 +354,6 @@
         </div>
         
         <div class="content">
-            <div class="email-subscribe">
-                <h3>🎁 Получите бесплатный чек-лист инвестора</h3>
-                <p>Подпишитесь на рассылку и получите PDF-гид «10 ошибок при инвестировании в облигации»</p>
-                
-                <form class="email-form" id="subscribeForm">
-                    <input type="email" id="emailInput" placeholder="Введите ваш email" required>
-                    <button type="submit">Получить гид</button>
-                </form>
-                
-                <div class="success-message" id="successMessage">
-                    ✅ Спасибо! Проверьте почту — гид уже отправлен!
-                </div>
-            </div>
-            
             <div class="input-section">
                 <h2 style="margin-bottom: 25px; color: #333;">Введите ваши данные</h2>
                 
@@ -534,22 +456,6 @@
             localStorage.setItem('visitorCount', count);
             document.getElementById('visitorCount').textContent = count.toLocaleString('ru-RU');
         }
-        
-        // Email подписка
-        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            
-            // Здесь будет отправка на ваш email через FormSubmit
-            // Инструкции по настройке ниже
-            
-            // Показываем сообщение об успехе
-            document.querySelector('.email-form').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Сохраняем email в localStorage для аналитики
-            localStorage.setItem('subscribedEmail', email);
-        });
         
         // Кнопки "Поделиться"
         function setupShareButtons() {
@@ -662,7 +568,9 @@
             // Предупреждения
             if (taxAmount > 50000) {
                 document.getElementById('warningBlock').style.display = 'block';
-                document.getElementById('warningText').textContent = `Ваш налог составляет ${formatNumber(taxAmount)} ₽ в год. Рассмотрите возможность частичного перевода в облигации для оптимизации налогообложения.`;
+                document.getElementById('warningBlock').style.background = '#fee';
+                document.getElementById('warningBlock').style.borderLeftColor = '#ef4444';
+                document.getElementById('warningText').innerHTML = `Ваш налог составляет ${formatNumber(taxAmount)} ₽ в год. Рассмотрите возможность частичного перевода в облигации для оптимизации налогообложения.`;
             } else if (taxAmount === 0) {
                 document.getElementById('warningBlock').style.display = 'block';
                 document.getElementById('warningBlock').style.background = '#d1fae5';
